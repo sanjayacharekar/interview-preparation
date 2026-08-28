@@ -320,3 +320,77 @@ function twoSum(arr, targetSum) {
   return null;
 }
 console.log(twoSum([2, 7, 11, 15], 9));
+function isPrime(num) {
+  if (num <= 1) {
+    return false;
+  }
+  for (let i = 2; i < num; i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(isPrime(7));
+function countVowels(str) {
+  const vowels = ['a','e','i','o','u'];
+  let counter = 0
+  for (let s of str) {
+    if(vowels.includes(s)){
+      counter ++;
+    }
+  }
+  return counter;
+}
+console.log(countVowels("Hello World"));
+// two pointer
+function reverseArray(arr) {
+  let right = arr.length - 1
+  let left = 0
+  while(left<right){
+    let temp = arr[right];
+    arr[right] = arr[left];
+    arr[left] = temp;
+    right--;
+    left++;
+  }
+  return arr;
+}
+console.log(reverseArray([1, 2, 3, 4, 5]));
+function removeDuplicates(arr) {
+  let right = 1
+  let left = 0
+  while(right !== arr.length){
+    console.log(arr[right], arr[left])
+    if(arr[right] === arr[left]){
+      right++;
+      continue;
+    }
+    arr[left+1]= arr[right]
+    left++;
+    // arr.length--;
+  }
+  arr.length = left+1;
+  return arr;
+}
+console.log(removeDuplicates([1, 1, 2, 2, 3, 4, 4]));
+function hasPairSum(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left < right) {
+        const sum = arr[left] + arr[right];
+
+        if (sum === target) {
+            return true;
+        }
+
+        if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+
+    return false;
+}
