@@ -212,3 +212,28 @@ function maxSum(arr, size) {
   return maxSum;
 }
 console.log(maxSum([2, 1, 5, 1, 3, 2], 3));
+function maxVowels(str, size) {
+  const vowels = "aeiou";
+  let windowVowelsCount = 0;
+  let maxVowelsCount = 0;
+  for (let i = 0; i < size; i++) {
+    if (vowels.includes(str[i])) {
+      windowVowelsCount++;
+    }
+  }
+  maxVowelsCount = windowVowelsCount;
+
+  let left = 0;
+  let right = size;
+  while (right < str.length) {
+    windowVowelsCount =
+      windowVowelsCount -
+      (vowels.includes(str[left]) ? 1 : 0) +
+      (vowels.includes(str[right]) ? 1 : 0);
+    maxVowelsCount = Math.max(maxVowelsCount, windowVowelsCount);
+    left++;
+    right++;
+  }
+  return maxVowelsCount;
+}
+console.log(maxVowels("leetcode", 3));
