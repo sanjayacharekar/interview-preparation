@@ -237,3 +237,105 @@ function maxVowels(str, size) {
   return maxVowelsCount;
 }
 console.log(maxVowels("leetcode", 3));
+
+/**
+ Now we'll move from fixed-size window to variable-size window.
+
+This is a more important interview pattern.
+
+Problem
+
+Given an array of positive numbers and a target, find the minimum length subarray whose sum is greater than or equal to the target.
+
+Example:
+
+minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
+
+Expected:
+
+2
+
+Because:
+
+[4, 3] = 7
+
+and its length is 2.
+
+Another valid subarray is:
+
+[3, 1, 2, 4] = 10
+
+but its length is 4, so we don't want it.
+
+Your goal
+
+Return only the minimum length.
+
+If no such subarray exists, return:
+
+0
+💡 Important clue
+
+Unlike our previous problems, the window size is not fixed.
+
+You need to:
+
+right → expand the window
+             ↓
+       sum >= target?
+             ↓
+       yes → shrink from left
+
+For example:
+
+[2, 3, 1, 2, 4, 3]
+ ↑
+left
+
+Keep expanding right until the sum reaches 7.
+
+Then start moving left forward to see whether you can make the window smaller while still satisfying the condition.
+
+This is the key idea behind variable-size Sliding Window.
+ */
+function minSubArrayLen(target, arr) {
+  let left = 0;
+  let windowSum = 0;
+  let minLength = Infinity;
+
+  for (let right = 0; right < arr.length; right++) {
+    // Add current element
+    windowSum += arr[right];
+
+    // While window is valid, shrink it
+    while (windowSum >= target) {
+      // calculate current window length
+      // update minLength
+      let len = right - left + 1;
+      minLength = len;
+      // remove left element
+      windowSum -= arr[left];
+      // move left
+      left++;
+    }
+  }
+
+  return minLength === Infinity ? 0 : minLength;
+}
+console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
+// function longestUniqueSubstring(str) {
+//   let left = 0;
+//   let maxLen = 0;
+//   let seen = {};
+//   for (let right = 0; right < str.length; right++) {
+//     if (seen[str[0]]) {
+//       left++;
+//       seen[str[0]] = false;
+//     } else {
+//       maxLen++;
+//       seen[str[0]] = true;
+//     }
+//   }
+//   console.log(maxLen)
+// }
+// console.log(longestUniqueSubstring("abcabcbb"));
