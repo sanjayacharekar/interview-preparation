@@ -322,20 +322,40 @@ function minSubArrayLen(target, arr) {
 
   return minLength === Infinity ? 0 : minLength;
 }
-console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
-// function longestUniqueSubstring(str) {
+console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]));
+function longestUniqueSubstring(str) {
+  let left = 0;
+  let maxLen = 0;
+  let strin = "";
+  for (let right = 0; right < str.length; right++) {
+    while (strin.includes(str[right])) {
+      strin = strin.slice(1)
+      left++;
+    }
+    strin += str[right];
+    maxLen = Math.max(maxLen, strin.length);
+  }
+  return maxLen;
+}
+console.log(longestUniqueSubstring("bbbbb"));
+console.log(longestUniqueSubstring("abcabcbb"));
+// function longestSubstringKDistinct(str, k) {
 //   let left = 0;
 //   let maxLen = 0;
-//   let seen = {};
+//   let frequency = {};
 //   for (let right = 0; right < str.length; right++) {
-//     if (seen[str[0]]) {
-//       left++;
-//       seen[str[0]] = false;
+//     if (!frequency[str[right]]) {
+//       frequency[str[right]] = 1;
 //     } else {
-//       maxLen++;
-//       seen[str[0]] = true;
+//       frequency[str[right]] += 1;
 //     }
+//     if (frequency[str[right]] <= k) {
+//       maxLen++;
+//       left++;
+//     }
+    
 //   }
-//   console.log(maxLen)
+
+//   console.log(maxLen, frequency);
 // }
-// console.log(longestUniqueSubstring("abcabcbb"));
+// console.log(longestSubstringKDistinct("eceba", 2));
