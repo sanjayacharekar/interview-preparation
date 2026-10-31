@@ -170,7 +170,7 @@ function newStack() {
     peek,
     isEmptyStack,
     getSize,
-    isFull
+    isFull,
   };
 }
 const stack = newStack();
@@ -178,9 +178,48 @@ const stack = newStack();
 stack.push(10);
 stack.push(20);
 stack.push(30);
-console.log(stack.peek()); // 30
-console.log(stack.pop()); // 30
-console.log(stack.peek()); // 20
-console.log(stack.isEmptyStack()); // false
-console.log(stack.getSize()); // false
-console.log(stack.isFull()); // false
+// console.log(stack.peek()); // 30
+// console.log(stack.pop()); // 30
+// console.log(stack.peek()); // 20
+// console.log(stack.isEmptyStack()); // false
+// console.log(stack.getSize()); // false
+// console.log(stack.isFull()); // false
+
+/**
+ * 1. Problem statement
+Given a string, reverse it using a Stack.
+
+Example 1:
+Input: "hello"
+Output: "olleh"
+ */
+
+class ReverseString {
+  constructor() {
+    this.size = 0;
+    this.stack = [];
+  }
+  push(val) {
+    this.stack[this.size] = val;
+    this.size++;
+  }
+  pop() {
+    if (this.size === 0) return undefined;
+    this.size--;
+    let popData = this.stack[this.size];
+    this.stack[this.size] = undefined;
+    return popData;
+  }
+  revStr(str) {
+    let valueToReturn = "";
+    for (const data of str) {
+      this.push(data);
+    }
+    while (this.size !== 0) {
+      valueToReturn += this.pop();
+    }
+    return valueToReturn
+  }
+}
+let strReverse = new ReverseString();
+console.log(strReverse.revStr("hello"));
